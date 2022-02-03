@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package lngapy.products;
+
+message Product {
+    string product_id = 1;
+    string productname = 2;
+}
+
+message GetProductsRequest{}
+
+message GetProductsResponse{
+    repeated Product products = 1;
+}
+
+message AddOrUpdateProductRequest{
+    Product product = 1;
+}
+
+message AddOrUpdateProductResponse{}
+
+service Products {
+    rpc Getproducts(GetProductsRequest) returns GetProductsResponse;
+    rpc AddOrUpdateProduct(AddOrUpdateProductRequest) returns AddOrUpdateProductResponse;
+}

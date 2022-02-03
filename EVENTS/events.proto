@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package lngapy.events;
+
+import "google/protobuf/timestamp.proto";
+
+message Event{
+    string event_id = 1;
+    string event_name = 2;
+    google.protobuf.Timestamp event_start_date = 3;
+    google.protobuf.Timestamp event_end_date = 4;
+    repeated User user = 5;
+}
+
+message User{
+    string user_id = 1;
+}
+
+message GetEventsRequest{}
+
+message GetEventsRepsonse{
+    repeated Event events = 1;
+}
+
+message GetCurrentEventRequest{}
+
+message GetCurrentEventRepsonse{
+    Event event = 1;
+}
+
+message AddOrUpdateEventRequest{
+    Event event = 1;
+}
+
+message AddOrUpdateEventResponse{}
+
+message AddUserToEventRequest{
+    string event_id = 1;
+    string user_id = 2;
+}
+
+message AddUserToEventResponse{}
+
+message SendEventInvoicesRequest{
+    string event_id = 1;
+}
+
+message CheckOutUserFromEventRequest{
+    string event_id = 1;
+    string user_id = 2;
+}
+
+message CheckOutUserFromEventResponse{}
+
+message SendEventInvoicesResponse{}
+
+service Events {
+    rpc GetEvents(GetEventsRequest) returns (GetEventsRepsonse);
+    rpc GetCurrentEvent(GetCurrentEventRequest) returns (GetCurrentEventRepsonse);
+    rpc AddOrUpdateEvent(AddOrUpdateEventRequest) returns (AddOrUpdateEventResponse);
+    rpc AddUserToEvent(AddUserToEventRequest) returns (AddUserToEventResponse);
+    rpc SendEventInvoices(SendEventInvoicesRequest) returns (SendEventInvoicesResponse);
+    rpc CheckOutUserFromEvent(CheckOutUserFromEventRequest) returns (CheckOutUserFromEventResponse);
+}
